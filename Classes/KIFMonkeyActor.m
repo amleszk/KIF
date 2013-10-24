@@ -6,7 +6,11 @@
 @interface KIFMonkeyActor ()
 @property UIView *rootViewControllerView;
 @property NSArray *viewClassesForTapping;
+@property NSArray *viewClassesForSwiping;
+@property NSArray *viewClassesForTextEntry;
 @property NSArray *alertViewClasses;
+@property NSArray *stepSelectorStrings;
+@property NSArray *stepSelectorStringsWeighting;
 @end
 
 @implementation KIFMonkeyActor
@@ -23,10 +27,21 @@
         [UIButton class],
         [UISwitch class],
         NSClassFromString(@"UINavigationButton"),
-        NSClassFromString(@"UISearchBar"),
-        NSClassFromString(@"UITextField"),
         NSClassFromString(@"UINavigationItemButtonView"),
     ];
+    self.viewClassesForSwiping = @[
+        [UIScrollView class],
+    ];
+    self.viewClassesForTextEntry = @[
+        NSClassFromString(@"UISearchBar"),
+        NSClassFromString(@"UITextField"),
+    ];
+    self.stepSelectorStrings = @[
+        @"searchForElementsToTap",
+        @"searchForElementsToSwipe",
+        @"searchForElementsToEnterText",
+    ];
+    self.stepSelectorStringsWeighting = @[@(0.5),@(0.4),@(0.1)];
 
     [self stepStateMachine];
 }
@@ -39,28 +54,73 @@
 
     [self runBlock:^KIFTestStepResult(NSError **error) {
         
-        UIAccessibilityElement *tapElement;
-        
         //Dismiss alerts
-        tapElement = [weakSelf findRandomAccessibilityElementInClasses:self.alertViewClasses];
-
-        //get any element
-        if (!tapElement) {
-            tapElement = [weakSelf findRandomAccessibilityElementInClasses:self.viewClassesForTapping];
+        UIAccessibilityElement *alertElement = [weakSelf findRandomAccessibilityElementInClasses:self.alertViewClasses];
+        if (alertElement) {
+            [self tapElement:alertElement];
+        } else {
+            while (YES) {
+                NSString *randomSelectorString = [self
+                    randomArrayElement:self.stepSelectorStrings
+                    withWeighting:self.stepSelectorStringsWeighting];
+                
+                SEL randomStepSelector = NSSelectorFromString(randomSelectorString);
+                BOOL foundElement = [self performSelector:randomStepSelector];
+                if (foundElement) break;
+            }
         }
         
-        if (!tapElement) return KIFTestStepResultWait;
-        
-        [weakSelf highlightAccessibilityElement:tapElement];
-
-        UIView *containerView = [UIAccessibilityElement viewContainingAccessibilityElement:tapElement];
-        [weakSelf tapAccessibilityElement:tapElement inView:containerView];
-        
         return KIFTestStepResultSuccess;
+        
     } complete:^(KIFTestStepResult result, NSError *error) {
         [weakSelf stepStateMachine];
     }];
 }
+
+#pragma mark Random Step Generators
+
+- (BOOL)searchForElementsToTap
+{
+    UIAccessibilityElement *tapElement = [self findRandomAccessibilityElementInClasses:self.viewClassesForTapping];
+    if (tapElement) {
+        [self tapElement:tapElement];
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)searchForElementsToSwipe
+{
+    UIAccessibilityElement *swipeElement = [self findRandomAccessibilityElementInClasses:self.viewClassesForSwiping];
+    if (swipeElement) {
+        [self swipeViewWithAccessibilityLabel:swipeElement.accessibilityLabel inDirection:[self randomSwipeDirection]];
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)searchForElementsToEnterText
+{
+    UIAccessibilityElement *element = [self findRandomAccessibilityElementInClasses:self.viewClassesForTextEntry];
+    if (element) {
+        [self tapElement:element];
+        NSString *enterString = [NSString stringWithFormat:@"%@\n",[self generateRandomStringWithLength:10]];
+        [self enterTextIntoCurrentFirstResponder:enterString];
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark Tap
+
+- (void) tapElement:(UIAccessibilityElement*)element
+{
+    [self highlightAccessibilityElement:element];
+    UIView *containerView = [UIAccessibilityElement viewContainingAccessibilityElement:element];
+    [self tapAccessibilityElement:element inView:containerView];
+}
+
+#pragma mark - Helpers
 
 - (UIAccessibilityElement*)findRandomAccessibilityElementInClasses:(NSArray*)classes
 {
@@ -82,30 +142,10 @@
     }
     
     if (allPotentialElements.count) {
-        NSInteger randomIndex = arc4random() % allPotentialElements.count;
-        return allPotentialElements[randomIndex];
+        return [self randomArrayElement:allPotentialElements];
     } else {
         return nil;
     }
-}
-
-- (BOOL)shouldTapFromRootViewController
-{
-    return [self isKeyWindowRootViewControllerWindow] && ![self isShowingUIActivityWindow];
-}
-
-- (BOOL)isKeyWindowRootViewControllerWindow
-{
-    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
-    UIView *rootView = keyWindow.rootViewController.view;
-    return rootView.window == keyWindow;
-}
-
-- (BOOL)isShowingUIActivityWindow
-{
-    BOOL isShowingUIActivityWindow = [self.rootViewControllerView subviewsWithClassNamePrefix:@"UIActivity"].count > 0;
-    NSLog(@"isShowingUIActivityWindow %@", isShowingUIActivityWindow ? @"YES" : @"NO");
-    return isShowingUIActivityWindow;
 }
 
 - (BOOL)isShowingKeyboard
@@ -124,6 +164,44 @@
         [highlightView removeFromSuperview];
     }];
     
+}
+
+NSString *letters = @"abcdefghijklmnopqrstuvwxyz ";
+-(NSString *)generateRandomStringWithLength:(NSInteger)length
+{
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: length];
+    for (int i=0; i<length; i++) {
+         [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+    }
+    return randomString;
+}
+
+-(id) randomArrayElement:(NSArray*)array
+{
+    NSInteger randomIndex = arc4random() % array.count;
+    return array[randomIndex];
+}
+
+-(id) randomArrayElement:(NSArray*)array withWeighting:(NSArray*)arrayWeights
+{
+    CGFloat randomPercent = (CGFloat)(arc4random() % 100)/100.;
+    NSInteger index = 0;
+    for (NSNumber *weightNumber in arrayWeights) {
+        CGFloat weight = [weightNumber floatValue];
+        if (randomPercent<weight) {
+            break;
+        }
+        randomPercent -= weight;
+        index++;
+    }
+    
+    return array[index];
+}
+
+-(KIFSwipeDirection) randomSwipeDirection
+{
+    KIFSwipeDirection direction = arc4random() % 3;
+    return direction;
 }
 
 @end
