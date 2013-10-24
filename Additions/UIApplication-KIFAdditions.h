@@ -40,6 +40,10 @@ UIKIT_EXTERN NSString *const UIApplicationOpenedURLKey;
 - (UIAccessibilityElement *)accessibilityElementMatchingBlock:(BOOL(^)(UIAccessibilityElement *))matchBlock;
 
 /*!
+ */
+- (NSArray *) accessibilityElementsMatchingBlock:(BOOL(^)(UIAccessibilityElement *))matchBlock;
+
+/*!
  @returns The window containing the keyboard or @c nil if the keyboard is not visible.
  */
 - (UIWindow *)keyboardWindow;

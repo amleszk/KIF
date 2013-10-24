@@ -10,6 +10,7 @@
 #import "KIFTestActor.h"
 #import "KIFTestCase.h"
 #import "KIFSystemTestActor.h"
+#import "KIFMonkeyActor.h"
 #import "KIFUITestActor.h"
 
 #import "SenTestCase-KIFAdditions.h"

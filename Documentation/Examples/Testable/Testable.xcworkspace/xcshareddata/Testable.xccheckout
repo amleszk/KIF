@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>BE73A384-F4CD-4E19-8AF3-F20ED01B071B</string>
+	<string>D3964F61-ED3A-4F08-AA0A-D58C7ADD08A9</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Testable</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C3ACCE6A-EB9B-4F85-8A28-3715A5A0DE24</key>
-		<string>https://github.com/NSElvis/KIF.git</string>
+		<key>803D4F89-EC4C-4E3E-9071-11F26FBA9B4E</key>
+		<string>https://github.com/kif-framework/KIF</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Documentation/Examples/Testable/Testable.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C3ACCE6A-EB9B-4F85-8A28-3715A5A0DE24</key>
+		<key>803D4F89-EC4C-4E3E-9071-11F26FBA9B4E</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/NSElvis/KIF.git</string>
+	<string>https://github.com/kif-framework/KIF</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C3ACCE6A-EB9B-4F85-8A28-3715A5A0DE24</string>
+	<string>803D4F89-EC4C-4E3E-9071-11F26FBA9B4E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C3ACCE6A-EB9B-4F85-8A28-3715A5A0DE24</string>
+			<string>803D4F89-EC4C-4E3E-9071-11F26FBA9B4E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>KIF</string>
 		</dict>

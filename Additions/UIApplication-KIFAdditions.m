@@ -61,6 +61,25 @@ static const void *KIFRunLoopModesKey = &KIFRunLoopModesKey;
     return nil;
 }
 
+- (NSArray *) accessibilityElementsMatchingBlock:(BOOL(^)(UIAccessibilityElement *))matchBlock;
+{
+    NSMutableArray *elements = [NSMutableArray array];
+    
+    for (UIWindow *window in [self.windowsWithKeyWindow reverseObjectEnumerator]) {
+        UIAccessibilityElement *element = [window accessibilityElementMatchingBlock:^BOOL(UIAccessibilityElement *element) {
+            BOOL matchBlockResult = matchBlock(element);
+            if (matchBlockResult) {
+                [elements addObject:element];
+            }
+            //HACK to get all elements, otherwise we stop on the first match
+            return NO;
+        }];
+        if (element) [elements addObject:element];
+    }
+    
+    return [NSArray arrayWithArray:elements];
+}
+
 #pragma mark - Interesting windows
 
 - (UIWindow *)keyboardWindow;
