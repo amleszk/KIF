@@ -56,7 +56,8 @@ static NSUInteger DeviceSystemMajorVersion() {
     
     if ((DeviceSystemMajorVersion() >= 7)) {
         self.alertViewClasses = @[
-            NSClassFromString(@"UIAlertButton")
+            NSClassFromString(@"UIAlertButton"),
+            NSClassFromString(@"_UIModalItemTableViewCell")
         ];
     }
     else {
@@ -235,23 +236,6 @@ static NSUInteger DeviceSystemMajorVersion() {
     NSInteger randomIndex = arc4random() % array.count;
     return array[randomIndex];
 }
-
--(id) randomArrayElement:(NSArray*)array withWeighting:(NSArray*)arrayWeights
-{
-    CGFloat randomPercent = (CGFloat)(arc4random() % 100)/100.;
-    NSInteger index = 0;
-    for (NSNumber *weightNumber in arrayWeights) {
-        CGFloat weight = [weightNumber floatValue];
-        if (randomPercent<weight) {
-            break;
-        }
-        randomPercent -= weight;
-        index++;
-    }
-    
-    return array[index];
-}
-
 
 #pragma mark - Helpers
 
