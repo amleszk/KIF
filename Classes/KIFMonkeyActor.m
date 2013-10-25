@@ -2,6 +2,9 @@
 #import "KIFMonkeyActor.h"
 #import "UIApplication-KIFAdditions.h"
 #import "UIAccessibilityElement-KIFAdditions.h"
+#import "KIFUIElementRecognizer.h"
+
+typedef KIFTestStepResult (^KIFStepBlock) (NSError **error) ;
 
 @interface KIFMonkeyActor ()
 @property UIView *rootViewControllerView;
@@ -11,16 +14,17 @@
 @property NSArray *alertViewClasses;
 @property NSArray *stepSelectorStrings;
 @property NSArray *stepSelectorStringsWeighting;
+@property BOOL isRunningStep;
 @end
 
 @implementation KIFMonkeyActor
 
-- (void)releaseTheMonkey
+- (void)releaseTheMonkeyForTimeInterval:(NSTimeInterval)timeInterval
 {
     self.rootViewControllerView = [[UIApplication sharedApplication] keyWindow].rootViewController.view;
     self.alertViewClasses = @[
         NSClassFromString(@"UIAlertButton"),
-        NSClassFromString(@"UIActivityButton"),
+        //NSClassFromString(@"UIActivityButton"),
     ];
     self.viewClassesForTapping = @[
         [UITableViewCell class],
@@ -43,38 +47,47 @@
     ];
     self.stepSelectorStringsWeighting = @[@(0.5),@(0.4),@(0.1)];
 
-    [self stepStateMachine];
+    [self monkeyRunLoopForTimeInterval:timeInterval];
 }
 
 #pragma mark - State machine
 
-- (void)stepStateMachine
+- (void)monkeyRunLoopForTimeInterval:(NSTimeInterval)timeInterval
 {
-    __block __typeof__(self) weakSelf = self;
-
-    [self runBlock:^KIFTestStepResult(NSError **error) {
-        
-        //Dismiss alerts
-        UIAccessibilityElement *alertElement = [weakSelf findRandomAccessibilityElementInClasses:self.alertViewClasses];
-        if (alertElement) {
-            [self tapElement:alertElement];
-        } else {
-            while (YES) {
-                NSString *randomSelectorString = [self
-                    randomArrayElement:self.stepSelectorStrings
-                    withWeighting:self.stepSelectorStringsWeighting];
-                
-                SEL randomStepSelector = NSSelectorFromString(randomSelectorString);
-                BOOL foundElement = [self performSelector:randomStepSelector];
-                if (foundElement) break;
-            }
+    NSDate *startDate = [NSDate date];
+    while (-[startDate timeIntervalSinceNow] < timeInterval) {
+        if (!_isRunningStep) {
+            _isRunningStep = YES;
+            __block __typeof__(self) weakSelf = self;
+            [self runBlock:[self findNextStep] complete:^(KIFTestStepResult result, NSError *error) {
+                weakSelf.isRunningStep = NO;
+            }];
         }
-        
+        CFRunLoopRunInMode([[UIApplication sharedApplication] currentRunLoopMode] ?: kCFRunLoopDefaultMode, 0.1, false);
+    }
+}
+
+- (KIFStepBlock)findNextStep
+{
+    UIAccessibilityElement *alertElement = [self findRandomAccessibilityElementInClasses:self.alertViewClasses];
+    if (alertElement) {
+        __block __typeof__(self) weakSelf = self;
+        return [^(NSError **error){
+            [weakSelf tapElement:alertElement];
+            return KIFTestStepResultSuccess;
+        } copy];
+    }
+    
+    __block __typeof__(self) weakSelf = self;
+    return [^(NSError **error){
+        SEL randomStepSelector = NSSelectorFromString([weakSelf randomNextStepSelector]);
+        [weakSelf performSelector:randomStepSelector];
         return KIFTestStepResultSuccess;
-        
-    } complete:^(KIFTestStepResult result, NSError *error) {
-        [weakSelf stepStateMachine];
-    }];
+    } copy];
+}
+
+- (NSString*)randomNextStepSelector {
+    return [self randomArrayElement:self.stepSelectorStrings withWeighting:self.stepSelectorStringsWeighting];
 }
 
 #pragma mark Random Step Generators
@@ -129,9 +142,6 @@
         NSArray *elementsForViewClass =
         [[UIApplication sharedApplication] accessibilityElementsMatchingBlock:^BOOL(UIAccessibilityElement *element) {
             UIView *containerView = [UIAccessibilityElement viewContainingAccessibilityElement:element];
-            if (![containerView isKindOfClass:[UIView class]]) {
-                return NO;
-            }
             if (![containerView isKindOfClass:viewClass]) {
                 return NO;
             }

@@ -7,6 +7,6 @@
 
 @interface KIFMonkeyActor : KIFUITestActor
 
-- (void)releaseTheMonkey;
+- (void)releaseTheMonkeyForTimeInterval:(NSTimeInterval)timeInterval;
 
 @end

@@ -83,11 +83,13 @@
 		EBAFFF3817C7C824003E3A1C /* SenTestCase-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EBAFFF3617C7C824003E3A1C /* SenTestCase-KIFAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBAFFF3917C7C824003E3A1C /* SenTestCase-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFF3717C7C824003E3A1C /* SenTestCase-KIFAdditions.m */; };
 		F34EB61018196DDD0058DC6B /* KIFMonkeyActor.h in Headers */ = {isa = PBXBuildFile; fileRef = F34EB60E18196DDD0058DC6B /* KIFMonkeyActor.h */; };
-		F34EB61118196DDD0058DC6B /* KIFMonkeyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = F34EB60F18196DDD0058DC6B /* KIFMonkeyActor.m */; };
 		F34EB61418196FB50058DC6B /* MonkeyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F34EB61318196FB50058DC6B /* MonkeyTests.m */; };
 		F3AA435E18198501007E4658 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA435D18198501007E4658 /* Reveal.framework */; };
 		F3AA436018198570007E4658 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA435F18198570007E4658 /* CFNetwork.framework */; };
 		F3AA436218198579007E4658 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA436118198579007E4658 /* QuartzCore.framework */; };
+		F3DBA744181AB9B40040A8BC /* KIFUIElementRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = F3DBA742181AB9B40040A8BC /* KIFUIElementRecognizer.h */; };
+		F3DBA745181AB9B40040A8BC /* KIFUIElementRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA743181AB9B40040A8BC /* KIFUIElementRecognizer.m */; };
+		F3DBA746181ABAAE0040A8BC /* KIFMonkeyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = F34EB60F18196DDD0058DC6B /* KIFMonkeyActor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +185,8 @@
 		F3AA435D18198501007E4658 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "../../../../../Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/Reveal.framework"; sourceTree = "<group>"; };
 		F3AA435F18198570007E4658 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F3AA436118198579007E4658 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F3DBA742181AB9B40040A8BC /* KIFUIElementRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFUIElementRecognizer.h; sourceTree = "<group>"; };
+		F3DBA743181AB9B40040A8BC /* KIFUIElementRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFUIElementRecognizer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +275,7 @@
 		AAB0728413971A98008AF393 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F3DBA741181AB9820040A8BC /* Monkey */,
 				EB4C312F167BA39200E31109 /* Actors */,
 				A88930111685098E00FC7C63 /* KIF.h */,
 				EB4C3127167BA37B00E31109 /* KIFTestCase.h */,
@@ -401,6 +406,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F3DBA741181AB9820040A8BC /* Monkey */ = {
+			isa = PBXGroup;
+			children = (
+				F3DBA742181AB9B40040A8BC /* KIFUIElementRecognizer.h */,
+				F3DBA743181AB9B40040A8BC /* KIFUIElementRecognizer.m */,
+			);
+			name = Monkey;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -410,6 +424,7 @@
 			files = (
 				A88930121685098E00FC7C63 /* KIF.h in Headers */,
 				EB7204591680DDAD00278DA2 /* CGGeometry-KIFAdditions.h in Headers */,
+				F3DBA744181AB9B40040A8BC /* KIFUIElementRecognizer.h in Headers */,
 				EB72045A1680DDAD00278DA2 /* UIAccessibilityElement-KIFAdditions.h in Headers */,
 				EB72045B1680DDAD00278DA2 /* UIApplication-KIFAdditions.h in Headers */,
 				EB72045C1680DDAD00278DA2 /* UIScrollView-KIFAdditions.h in Headers */,
@@ -616,6 +631,8 @@
 				EB7204431680DDAD00278DA2 /* CGGeometry-KIFAdditions.m in Sources */,
 				EB7204441680DDAD00278DA2 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
 				EB7204451680DDAD00278DA2 /* UIApplication-KIFAdditions.m in Sources */,
+				F3DBA745181AB9B40040A8BC /* KIFUIElementRecognizer.m in Sources */,
+				F3DBA746181ABAAE0040A8BC /* KIFMonkeyActor.m in Sources */,
 				EB7204461680DDAD00278DA2 /* UIScrollView-KIFAdditions.m in Sources */,
 				EB7204471680DDAD00278DA2 /* UITouch-KIFAdditions.m in Sources */,
 				EB7204481680DDAD00278DA2 /* UIView-KIFAdditions.m in Sources */,
@@ -626,7 +643,6 @@
 				EB72044D1680DDAD00278DA2 /* KIFTestCase.m in Sources */,
 				EB72044E1680DDAD00278DA2 /* KIFSystemTestActor.m in Sources */,
 				EB72044F1680DDAD00278DA2 /* KIFUITestActor.m in Sources */,
-				F34EB61118196DDD0058DC6B /* KIFMonkeyActor.m in Sources */,
 				EBAFFF3917C7C824003E3A1C /* SenTestCase-KIFAdditions.m in Sources */,
 				EBAE487D17A45A8E0005EE19 /* NSBundle-KIFAdditions.m in Sources */,
 				EBAE488217A460E50005EE19 /* NSError-KIFAdditions.m in Sources */,

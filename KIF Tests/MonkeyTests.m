@@ -1,6 +1,5 @@
 
 #import <KIF/KIF.h>
-#import <KIF/KIFTestStepValidation.h>
 
 @interface MonkeyTests : KIFTestCase
 @end
@@ -9,7 +8,7 @@
 
 - (void)testReleasingTheMonkey
 {
-    [monkey releaseTheMonkey];
+    [monkey releaseTheMonkeyForTimeInterval:60.];
 }
 
 @end
