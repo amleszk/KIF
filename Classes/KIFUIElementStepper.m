@@ -1,5 +1,5 @@
 
-#import "KIFUIElementRecognizer.h"
+#import "KIFUIElementStepper.h"
 #import "UIAccessibilityElement-KIFAdditions.h"
 #import "UIView-KIFAdditions.h"
 #import "UIApplication-KIFAdditions.h"
@@ -16,8 +16,7 @@ static NSUInteger DeviceSystemMajorVersion() {
 
 
 
-@interface KIFUIElementRecognizer ()
-//@property NSMutableDictionary *viewClassesToElementTypes;
+@interface KIFUIElementStepper ()
 @property NSMutableDictionary *probabilitiesToElementTypes;
 @property NSDictionary *elementTypeToSelector;
 @property NSArray *viewClassesForTapping;
@@ -31,16 +30,15 @@ static NSUInteger DeviceSystemMajorVersion() {
 @property KIFUITestActor* actor;
 @end
 
-@implementation KIFUIElementRecognizer
+@implementation KIFUIElementStepper
 
-- (id)initWithActor:(KIFUITestActor*)actor
+- (id)init
 {
     self = [super init];
     if (self) {
     
-    self.actor = actor;
+    self.actor = [[KIFUITestActor alloc] init];
     self.probabilitiesToElementTypes = [NSMutableDictionary dictionary];
-    
 
     self.elementTypeToSelector = @{
         @(KIFUIElementTypeSingleTappable):@"searchForElementsToTap",
@@ -51,7 +49,7 @@ static NSUInteger DeviceSystemMajorVersion() {
     };
     
     self.accessabilityLabelsToExclude = @[
-        @"Mail",@"Facebook",@"Twitter", @"Weibo"
+        @"Mail",@"Facebook",@"Twitter", @"Weibo", @"Open in Safari"
     ];
     
     if ((DeviceSystemMajorVersion() >= 7)) {
@@ -117,7 +115,7 @@ static NSUInteger DeviceSystemMajorVersion() {
     [self updateTotalProbability];
 }
 
-- (KIFStepBlock)nextStep
+- (KIFTestExecutionBlock)nextStep
 {
     UIAccessibilityElement *alertElement = [self findRandomAccessibilityElementInClasses:self.alertViewClasses];
     if (alertElement) {

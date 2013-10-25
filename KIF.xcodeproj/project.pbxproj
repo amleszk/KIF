@@ -84,11 +84,13 @@
 		EBAFFF3917C7C824003E3A1C /* SenTestCase-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFF3717C7C824003E3A1C /* SenTestCase-KIFAdditions.m */; };
 		F34EB61018196DDD0058DC6B /* KIFMonkeyActor.h in Headers */ = {isa = PBXBuildFile; fileRef = F34EB60E18196DDD0058DC6B /* KIFMonkeyActor.h */; };
 		F34EB61418196FB50058DC6B /* MonkeyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F34EB61318196FB50058DC6B /* MonkeyTests.m */; };
+		F3773754181AFE03004ACA87 /* KIFSystemEventStepper.h in Headers */ = {isa = PBXBuildFile; fileRef = F3773752181AFE03004ACA87 /* KIFSystemEventStepper.h */; };
+		F3773755181AFE03004ACA87 /* KIFSystemEventStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = F3773753181AFE03004ACA87 /* KIFSystemEventStepper.m */; };
 		F3AA435E18198501007E4658 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA435D18198501007E4658 /* Reveal.framework */; };
 		F3AA436018198570007E4658 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA435F18198570007E4658 /* CFNetwork.framework */; };
 		F3AA436218198579007E4658 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA436118198579007E4658 /* QuartzCore.framework */; };
-		F3DBA744181AB9B40040A8BC /* KIFUIElementRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = F3DBA742181AB9B40040A8BC /* KIFUIElementRecognizer.h */; };
-		F3DBA745181AB9B40040A8BC /* KIFUIElementRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA743181AB9B40040A8BC /* KIFUIElementRecognizer.m */; };
+		F3DBA744181AB9B40040A8BC /* KIFUIElementStepper.h in Headers */ = {isa = PBXBuildFile; fileRef = F3DBA742181AB9B40040A8BC /* KIFUIElementStepper.h */; };
+		F3DBA745181AB9B40040A8BC /* KIFUIElementStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DBA743181AB9B40040A8BC /* KIFUIElementStepper.m */; };
 		F3DBA746181ABAAE0040A8BC /* KIFMonkeyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = F34EB60F18196DDD0058DC6B /* KIFMonkeyActor.m */; };
 /* End PBXBuildFile section */
 
@@ -182,11 +184,13 @@
 		F34EB60E18196DDD0058DC6B /* KIFMonkeyActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFMonkeyActor.h; sourceTree = "<group>"; };
 		F34EB60F18196DDD0058DC6B /* KIFMonkeyActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFMonkeyActor.m; sourceTree = "<group>"; };
 		F34EB61318196FB50058DC6B /* MonkeyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonkeyTests.m; sourceTree = "<group>"; };
+		F3773752181AFE03004ACA87 /* KIFSystemEventStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFSystemEventStepper.h; sourceTree = "<group>"; };
+		F3773753181AFE03004ACA87 /* KIFSystemEventStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFSystemEventStepper.m; sourceTree = "<group>"; };
 		F3AA435D18198501007E4658 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "../../../../../Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/Reveal.framework"; sourceTree = "<group>"; };
 		F3AA435F18198570007E4658 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F3AA436118198579007E4658 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		F3DBA742181AB9B40040A8BC /* KIFUIElementRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFUIElementRecognizer.h; sourceTree = "<group>"; };
-		F3DBA743181AB9B40040A8BC /* KIFUIElementRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFUIElementRecognizer.m; sourceTree = "<group>"; };
+		F3DBA742181AB9B40040A8BC /* KIFUIElementStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFUIElementStepper.h; sourceTree = "<group>"; };
+		F3DBA743181AB9B40040A8BC /* KIFUIElementStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFUIElementStepper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,8 +413,10 @@
 		F3DBA741181AB9820040A8BC /* Monkey */ = {
 			isa = PBXGroup;
 			children = (
-				F3DBA742181AB9B40040A8BC /* KIFUIElementRecognizer.h */,
-				F3DBA743181AB9B40040A8BC /* KIFUIElementRecognizer.m */,
+				F3DBA742181AB9B40040A8BC /* KIFUIElementStepper.h */,
+				F3DBA743181AB9B40040A8BC /* KIFUIElementStepper.m */,
+				F3773752181AFE03004ACA87 /* KIFSystemEventStepper.h */,
+				F3773753181AFE03004ACA87 /* KIFSystemEventStepper.m */,
 			);
 			name = Monkey;
 			sourceTree = "<group>";
@@ -423,8 +429,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A88930121685098E00FC7C63 /* KIF.h in Headers */,
+				F3773754181AFE03004ACA87 /* KIFSystemEventStepper.h in Headers */,
 				EB7204591680DDAD00278DA2 /* CGGeometry-KIFAdditions.h in Headers */,
-				F3DBA744181AB9B40040A8BC /* KIFUIElementRecognizer.h in Headers */,
+				F3DBA744181AB9B40040A8BC /* KIFUIElementStepper.h in Headers */,
 				EB72045A1680DDAD00278DA2 /* UIAccessibilityElement-KIFAdditions.h in Headers */,
 				EB72045B1680DDAD00278DA2 /* UIApplication-KIFAdditions.h in Headers */,
 				EB72045C1680DDAD00278DA2 /* UIScrollView-KIFAdditions.h in Headers */,
@@ -629,9 +636,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB7204431680DDAD00278DA2 /* CGGeometry-KIFAdditions.m in Sources */,
+				F3773755181AFE03004ACA87 /* KIFSystemEventStepper.m in Sources */,
 				EB7204441680DDAD00278DA2 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
 				EB7204451680DDAD00278DA2 /* UIApplication-KIFAdditions.m in Sources */,
-				F3DBA745181AB9B40040A8BC /* KIFUIElementRecognizer.m in Sources */,
+				F3DBA745181AB9B40040A8BC /* KIFUIElementStepper.m in Sources */,
 				F3DBA746181ABAAE0040A8BC /* KIFMonkeyActor.m in Sources */,
 				EB7204461680DDAD00278DA2 /* UIScrollView-KIFAdditions.m in Sources */,
 				EB7204471680DDAD00278DA2 /* UITouch-KIFAdditions.m in Sources */,

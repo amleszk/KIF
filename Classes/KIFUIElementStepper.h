@@ -9,16 +9,14 @@ typedef NS_ENUM(NSInteger, KIFUIElementType) {
     KIFUIElementTypeTextField
 };
 
-typedef KIFTestStepResult (^KIFStepBlock) (NSError **error);
+@interface KIFUIElementStepper : NSObject
 
-@interface KIFUIElementRecognizer : NSObject
-
-- (id)initWithActor:(KIFUITestActor*)actor;
+- (id)init;
 
 -(void) setProbability:(float)probability ofChosingElement:(KIFUIElementType)elementType;
 -(void) setDefaultProbabilities;
 
-- (KIFStepBlock)nextStep;
+- (KIFTestExecutionBlock)nextStep;
 
 @property BOOL shouldIgnoreEmailShareButton;
 @property BOOL shouldIgnoreSocialShareButtons;
