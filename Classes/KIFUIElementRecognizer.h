@@ -1,15 +1,26 @@
 
+#import "KIFUITestActor.h"
+
 typedef NS_ENUM(NSInteger, KIFUIElementType) {
-    KIFUIElementTypeAlert = 0,
     KIFUIElementTypeSingleTappable,
     KIFUIElementTypeDoubleTappable,
     KIFUIElementTypeLongPressable,
-    KIFUIElementTypeSwipeable
+    KIFUIElementTypeSwipeable,
+    KIFUIElementTypeTextField
 };
+
+typedef KIFTestStepResult (^KIFStepBlock) (NSError **error);
 
 @interface KIFUIElementRecognizer : NSObject
 
--(void) setProbability:(float)probability ofChosingElement:(KIFUIElementType)elementType;
+- (id)initWithActor:(KIFUITestActor*)actor;
 
+-(void) setProbability:(float)probability ofChosingElement:(KIFUIElementType)elementType;
+-(void) setDefaultProbabilities;
+
+- (KIFStepBlock)nextStep;
+
+@property BOOL shouldIgnoreEmailShareButton;
+@property BOOL shouldIgnoreSocialShareButtons;
 
 @end
