@@ -22,7 +22,7 @@ static NSUInteger DeviceSystemMajorVersion() {
 @property NSArray *viewClassesForTapping;
 @property NSArray *viewClassesForSwiping;
 @property NSArray *viewClassesForTextEntry;
-@property NSArray *accessabilityLabelsToExclude;
+@property NSArray *accessibilityLabelsToExclude;
 @property NSArray *alertViewClasses;
 @property NSArray *stepSelectorStrings;
 @property NSArray *stepSelectorStringsWeighting;
@@ -37,54 +37,55 @@ static NSUInteger DeviceSystemMajorVersion() {
     self = [super init];
     if (self) {
     
-    self.actor = [[KIFUITestActor alloc] init];
-    self.probabilitiesToElementTypes = [NSMutableDictionary dictionary];
+        self.actor = [[KIFUITestActor alloc] init];
+        self.probabilitiesToElementTypes = [NSMutableDictionary dictionary];
 
-    self.elementTypeToSelector = @{
-        @(KIFUIElementTypeSingleTappable):@"searchForElementsToTap",
-        @(KIFUIElementTypeDoubleTappable):@"searchForElementsToTap",
-        @(KIFUIElementTypeLongPressable):@"searchForElementsToTap",
-        @(KIFUIElementTypeSwipeable):@"searchForElementsToSwipe",
-        @(KIFUIElementTypeTextField):@"searchForElementsToEnterText",
-    };
-    
-    self.accessabilityLabelsToExclude = @[
-        @"Mail",@"Facebook",@"Twitter", @"Weibo", @"Open in Safari"
-    ];
-    
-    if ((DeviceSystemMajorVersion() >= 7)) {
-        self.alertViewClasses = @[
-            NSClassFromString(@"UIAlertButton"),
-            NSClassFromString(@"_UIModalItemTableViewCell")
+        self.elementTypeToSelector = @{
+            @(KIFUIElementTypeSingleTappable):@"searchForElementsToTap",
+            @(KIFUIElementTypeDoubleTappable):@"searchForElementsToTap",
+            @(KIFUIElementTypeLongPressable):@"searchForElementsToTap",
+            @(KIFUIElementTypeSwipeable):@"searchForElementsToSwipe",
+            @(KIFUIElementTypeTextField):@"searchForElementsToEnterText",
+        };
+        
+        self.accessibilityLabelsToExclude = @[
+            @"Mail",@"Facebook",@"Twitter", @"Weibo",
+            @"Open in Safari", @"Open Apple Maps", @"Open Google Maps"
         ];
-    }
-    else {
-        self.alertViewClasses = @[
-            NSClassFromString(@"UIAlertButton"),
-            NSClassFromString(@"UIActivityButton"),
-        ];
+        
+        if ((DeviceSystemMajorVersion() >= 7)) {
+            self.alertViewClasses = @[
+                NSClassFromString(@"UIAlertButton"),
+                NSClassFromString(@"_UIModalItemTableViewCell")
+            ];
+        }
+        else {
+            self.alertViewClasses = @[
+                NSClassFromString(@"UIAlertButton"),
+                NSClassFromString(@"UIActivityButton"),
+            ];
 
-    }
-    
-    self.viewClassesForTapping = @[
-        [UITableViewCell class],
-        [UIButton class],
-        [UISwitch class],
-        NSClassFromString(@"UINavigationButton"),
-        NSClassFromString(@"UINavigationItemButtonView"),
-    ];
-    self.viewClassesForSwiping = @[
-        [UIScrollView class],
-    ];
-    self.viewClassesForTextEntry = @[
-        NSClassFromString(@"UISearchBar"),
-        NSClassFromString(@"UITextField"),
-    ];
-    self.stepSelectorStrings = @[
-        @"searchForElementsToTap",
-        @"searchForElementsToSwipe",
-        @"searchForElementsToEnterText",
-    ];
+        }
+        
+        self.viewClassesForTapping = @[
+            [UITableViewCell class],
+            [UIButton class],
+            [UISwitch class],
+            NSClassFromString(@"UINavigationButton"),
+            NSClassFromString(@"UINavigationItemButtonView"),
+        ];
+        self.viewClassesForSwiping = @[
+            [UIScrollView class],
+        ];
+        self.viewClassesForTextEntry = @[
+            NSClassFromString(@"UISearchBar"),
+            NSClassFromString(@"UITextField"),
+        ];
+        self.stepSelectorStrings = @[
+            @"searchForElementsToTap",
+            @"searchForElementsToSwipe",
+            @"searchForElementsToEnterText",
+        ];
 
     }
     return self;
@@ -111,7 +112,7 @@ static NSUInteger DeviceSystemMajorVersion() {
     [self setProbability:1 ofChosingElement:KIFUIElementTypeDoubleTappable];
     [self setProbability:2 ofChosingElement:KIFUIElementTypeLongPressable];
     [self setProbability:5 ofChosingElement:KIFUIElementTypeSwipeable];
-    [self setProbability:5 ofChosingElement:KIFUIElementTypeTextField];
+    [self setProbability:10 ofChosingElement:KIFUIElementTypeTextField];
     [self updateTotalProbability];
 }
 
@@ -146,7 +147,7 @@ static NSUInteger DeviceSystemMajorVersion() {
     for (Class viewClass in classes) {
         NSArray *elementsForViewClass =
         [[UIApplication sharedApplication] accessibilityElementsMatchingBlock:^BOOL(UIAccessibilityElement *element) {
-            for (NSString *accessabilityLabelToExclude in _accessabilityLabelsToExclude) {
+            for (NSString *accessabilityLabelToExclude in _accessibilityLabelsToExclude) {
                 if([accessabilityLabelToExclude isEqualToString:element.accessibilityLabel])
                     return NO;
             }
