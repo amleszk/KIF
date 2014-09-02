@@ -48,4 +48,20 @@
     [tester waitForViewWithAccessibilityLabel:@"X" traits:UIAccessibilityTraitSelected];
 }
 
+- (void)testTappingViewPartiallyOffscreenAndWithinScrollView
+{
+    [tester tapViewWithAccessibilityLabel:@"Slightly Offscreen Button"];
+}
+
+- (void)testTappingViewWithTapGestureRecognizer
+{
+    [tester tapViewWithAccessibilityLabel:@"Label with Tap Gesture Recognizer"];
+}
+
+- (void)testTappingLabelWithLineBreaks
+{
+    [tester tapViewWithAccessibilityLabel:@"Label with\nLine Break\n\n"];
+    [tester tapViewWithAccessibilityLabel:@"A\nB\nC\n\n"];
+}
+
 @end
